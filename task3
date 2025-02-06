@@ -1,0 +1,33 @@
+<?php
+
+class Book{ //свойства
+    public string $title; 
+    public string $author;
+    public int $year;
+    public int $price;
+
+
+function __construct($title, $author, $year, $price){ //конструктор класса
+    $this->title = $title;
+    $this->author = $author;
+    $this->year = $year;
+    $this->price = $price;
+}
+
+function getInfo(){//метод класса
+    echo 'Title:'.$this->title.PHP_EOL;
+    echo 'Author:'.$this->author.PHP_EOL;
+    echo 'Year:'.$this->year.PHP_EOL;
+    echo 'Price($):'.$this->price.PHP_EOL.PHP_EOL;
+}
+}
+
+$book1 = new Book('Tom Sawyer', 'M.Twain', 1876, 20);
+$book2 = new Book('Twenty Thousand Leagues Under the Seas','Jules Verne', 1872, 15);
+$book3 = new Book('Strange Case of Dr Jekyll and Mr Hyde','Robert Louis Stevenson',1886, 18);
+
+$book1->getInfo();
+$book2->getInfo();
+$book3->getInfo();
+
+?>
