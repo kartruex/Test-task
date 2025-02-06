@@ -1,0 +1,35 @@
+<?php
+$shoppingCart = [
+    ['product' => 'Телефон', 'price' => 900],
+    ['product' => 'Наушники', 'price' => 900],
+    ['product' => 'Ноутбук', 'price' => 900],
+    ['product' => 'Планшет', 'price' => 900],
+    ['product' => 'Смарт-часы', 'price' => 900],
+    ['product' => 'Клавиатура', 'price' => 900],
+    ['product' => 'Мышь', 'price' => 900],
+    ['product' => 'Монитор', 'price' => 900],
+    ['product' => 'Флеш-накопитель', 'price' => 900],
+    ['product' => 'Игровая консоль', 'price' => 900]
+    ];
+
+    $sum = 0; //общая сумма
+    $arrItemNum = 0; // количество элементов
+    $pricetThsndItem = false; //проверка на цену > 1000
+
+    foreach($shoppingCart as $product){
+       $sum += $product['price']; //сумма товаров в корзине
+       $arrItemNum++; // количество элементов
+       if($product['price'] >= 1000){
+        $pricetThsndItem = true; //проверка на цену > 1000
+       }
+    };
+
+    if($pricetThsndItem == true){
+        $sum *= 0.9; //Условие 1
+    }
+
+    if($arrItemNum >= 3){
+        $sum *= 0.95; //Условие 2
+    }
+    echo $sum;
+    ?>
