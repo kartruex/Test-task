@@ -1,0 +1,88 @@
+<?php
+$name    = isset($_POST['name']) ? $_POST['name'] : ''; //проверка ключей через тернарный оператор 
+$email   = isset($_POST['email']) ? $_POST['email'] : '';
+$rating  = isset($_POST['rating']) ? $_POST['rating'] : '';
+$comment = isset($_POST['comment']) ? $_POST['comment'] : '';
+
+if (empty($name) && empty($email) && empty($rating) && trim($comment) == '') { //проверка по заполненности полей + имя, папроль, комментарий ограничены на уровне HTML
+    echo 'Пожалуйста заполните поля';
+} elseif (preg_match('/^\s*$/', $name) || empty($name)) {
+    echo "<p>Недопустимо использовать только пробелы в поле имени или имя не введено</p>";
+} elseif (empty($email)) {
+    echo "<p>Электронная почта не введена</p>";
+} elseif(empty($rating)){
+    echo "<p>Оценка не поставлена</p>";
+} elseif (empty($comment)) {
+    echo "<p>Комментарий не введен</p>";
+}  else {
+    echo "<p>Спасибо за ваше сообщение!</p>";
+}
+
+$exportData = 'Имя:'.$name.PHP_EOL. //запись в файл
+              'Почта:'.$email.PHP_EOL.
+              'Оценка:'.$rating.PHP_EOL.
+              'Комментарий:'.$comment.PHP_EOL.PHP_EOL;
+
+$exportFile = fopen('exportFile.txt','a');
+if($exportFile){
+    fwrite($exportFile, $exportData);
+    fclose($exportFile);
+}
+?>
+
+<!DOCTYPE html >
+<html lang = "en" >
+<head >
+    <meta charset = "UTF-8" >
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0" >
+    <title > Document</title >
+    <style>
+        body {
+            text-align: center;
+        }
+        form {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            padding: 15px;
+            width: 300px;
+            margin: 30px auto;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        textarea {
+            font-family: Arial;
+            display: block;
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            background-color: #007BFF;
+            color: #ffffff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        p {
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head >
+<body >
+    <form method = "POST" >
+        <input type = 'text' name = 'name' placeholder = "Имя" maxlength="15">
+        <input type = 'email' name = 'email' placeholder = "Эл.адрес" >
+        <input type = 'number' name = 'rating' placeholder = "Оценка" max="5">
+        <textarea name = 'comment' placeholder = "Комментарий" maxlength="200"></textarea >
+        <button type = 'submit' name = 'send'> Отправить</button >
+    </form >
+</body >
+</html >
